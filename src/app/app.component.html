@@ -1,9 +1,47 @@
-<div style="color: white;">
-  <div style="text-align:center;">
-    <h1>
-      WillCoin takes care of your will!
-    </h1>
-  </div>
-  <h2><a style="color: white;" target="_blank" rel="noopener" href="https://github.com/justvamp/willcoin">Fork on GitHub</a></h2>
-</div>
 <particles [style]="myStyle" [params]="myParams"></particles>
+<div class="base-class">
+  <div style="text-align:center;">
+    <h1>WillCoin</h1>
+    <h3>Never loose money - WillCoin always takes care of your will</h3>
+  </div>
+  <h3>
+    <a style="color: white;" target="_blank" rel="noopener" href="https://github.com/justvamp/willcoin">Fork on GitHub</a>
+  </h3>
+</div>
+
+<pre><code class="smart-contract">{{smartContract}}</code></pre>
+
+<div>
+  <button style="margin: 0 20px;" (click)="clickDeploy()" [(class.disabled)]="deployDisabled">Deploy smart-contract</button>
+  <span class="deployed-address">{{deployedAddress}}</span>
+  <span class="deploy-error">{{deployError}}</span>
+</div>
+
+<div *ngIf="deployedAddress">
+    <div class="accounts-form">
+        <label for="wallet_1">Wallet:</label>
+        <select id="wallet_1" [(ngModel)]="wallet1">
+          <option *ngFor="let wallet of wallets" >{{wallet}}</option>
+        </select>
+
+        <div style="clear: both;"></div>
+
+        <label for="action_type">Action:</label>
+        <select id="action_type" [(ngModel)]="actionType">
+            <option *ngFor="let action of actionTypes">{{action}}</option>
+        </select>
+        <input type="text" [(ngModel)]="actionValue" placeholder="Action value">
+
+        <div style="clear: both;"></div>
+
+        <button (click)="performAction()" [(class.disabled)]="actionDisabled">Perform action</button>
+        <span class="action-result">{{actionResult}}</span>
+
+        <div style="clear: both;"></div>
+        <span style="opacity: 0.2">0x61fbaef29eCFA323B9A14b7a3089806a5162afE9</span>
+        <div style="clear: both;"></div>
+        <span style="opacity: 0.2">0x4191fa8F6459aa70296aa3fb844eBDa2f27005D7</span>
+    </div>
+</div>
+
+<div style="height: 50px;"></div>

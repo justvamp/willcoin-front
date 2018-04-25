@@ -2,13 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Frontend</title>
+  <title>WillCoin - never loose money</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link rel="stylesheet" href="assets/default.css">
+  <link rel="stylesheet" href="assets/angular-material.min.css">
 </head>
 <body>
   <app-root></app-root>
+
+  <script type="text/javascript" src="assets/highlight.js"></script>
+  <script type="text/javascript" src="assets/solidity.js"></script>
+  <script type="text/javascript">
+      hljs.registerLanguage('solidity', window.hljsDefineSolidity);
+      // TODO: fix crutch
+      setTimeout(function() {
+          hljs.initHighlightingOnLoad();
+      }, 300);
+  </script>
 </body>
 </html>

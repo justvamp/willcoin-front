@@ -1,1 +1,80 @@
-/* You can add global styles to this file, and also import other style files */
+
+body {
+    font-family: 'Lucida Sans', sans-serif;
+    text-align: center;
+    color: white;
+}
+
+h1 {
+    color: white;
+    font-size: 100px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h3 {
+    font-size: 30px;
+}
+
+.smart-contract {
+    text-align: left;
+    white-space: pre;
+    background-color: white;
+    font-size: 12px;
+    display: inline-block;
+    opacity: 0.7;
+    width: 1000px;
+}
+
+.deployed-address {
+    font-size: 15px;
+    color: #114411;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.deploy-error {
+    font-size: 15px;
+    color: #441111;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.base-class {
+    color: white;
+}
+
+button {
+    cursor: pointer;
+    border: 1px solid #0066cc;
+    background-color: #0099cc;
+    color: #ffffff;
+    padding: 5px 10px;
+}
+
+button:hover {
+    border: 1px solid #0099cc;
+    background-color: #00aacc;
+    color: #ffffff;
+    padding: 5px 10px;
+}
+
+button:disabled,
+button.disabled,
+button[disabled] {
+    cursor: default;
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+}
+
+.accounts-form {
+    margin: 40px;
+    display: inline-block;
+    width: 50%;
+}
+
+.accounts-form select,
+.accounts-form input,
+.accounts-form button {
+    margin: 15px;
+}

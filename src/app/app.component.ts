@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { isObject } from 'util';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +11,83 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   public myStyle = {};
   public myParams = {};
+
+  public smartContract = '';
+
+  public deployDisabled = false;
+  public deployError = '';
+  public deployedAddress = '';
+
+  public actionDisabled = false;
+
+  public wallet1 = '';
+  public actionType = '';
+  public actionValue = '';
+  public actionResult = '';
+
+  public wallets = [
+    '0x61fbaef29eCFA323B9A14b7a3089806a5162afE9',
+    '0x4191fa8F6459aa70296aa3fb844eBDa2f27005D7',
+    '0x3F2225A1492fC01631dAD1835841bD330f1ecD31'
+  ];
+
+  public actionTypes = [
+    'getBalance',
+    'setOffspring',
+    'getOffspring',
+    'setBlocksTillWill',
+    'getBlocksTillWill',
+    'getMoneyBags',
+    'getLastActiveBlock',
+    'performLastWill',
+    'bringMeToLife',
+    'emptyMoneyBag'
+  ];
+
+  public constructor(private http: HttpClient) {
+  }
+
+  public clickDeploy() {
+    this.deployDisabled = true;
+    this.deployError = '';
+    this.http.get('http://localhost:3000/api/deploy').subscribe((data) => {
+      this.deployDisabled = false;
+      this.deployedAddress = data['deployedAddress'];
+      // console.log(data);
+    }, (error) => {
+      this.deployDisabled = false;
+      this.deployedAddress = '';
+      this.deployError = error.message;
+    });
+  }
+
+  public performAction() {
+    // console.log(this.wallet1, this.actionType, this.actionValue);
+
+    this.actionDisabled = true;
+    this.actionResult = '';
+
+    this.http.get('http://localhost:3000/api/run_action', {params: {
+      smart: this.deployedAddress,
+      wallet: this.wallet1,
+      action: this.actionType,
+      value: this.actionValue
+    }}).subscribe((data) => {
+      this.actionDisabled = false;
+      this.actionResult = isObject(data['result'])
+        ? 'ok' // JSON.stringify(data['result'])
+        : (data['result'] ? data['result'] : 'ok');
+
+      this.wallet1 = '';
+      this.actionType = '';
+      this.actionValue = '';
+
+      console.log(data);
+    }, (error) => {
+      this.actionDisabled = false;
+      this.actionResult = error.message;
+    });
+  }
 
   ngOnInit() {
     this.myStyle = {
@@ -132,5 +212,7 @@ export class AppComponent implements OnInit {
       },
       'retina_detect': true
     };
+
+    this.http.get('http://localhost:3000/api/get_sm').subscribe(data => this.smartContract = data['smartContract']);
   }
 }
